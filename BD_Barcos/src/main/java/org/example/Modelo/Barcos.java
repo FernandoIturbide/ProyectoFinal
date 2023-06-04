@@ -86,7 +86,7 @@ public class Barcos {
     }
     public ImageIcon getImagen () throws MalformedURLException {
         URL urlImagen=new URL(this.URL);
-        //Image imagen=new ImageIcon(urlImagen).getImage().getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+
         return new ImageIcon(urlImagen);
     }
 

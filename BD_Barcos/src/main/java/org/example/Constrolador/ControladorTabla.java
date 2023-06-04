@@ -15,6 +15,7 @@ public class ControladorTabla extends MouseAdapter {
     private ModeloTablaBarcos modelo;
     private int index;
     private String id,nombre,tipo,url,pasajeros,ano;
+    private boolean actualizar=false;
 
     public ControladorTabla(VentanaBarcos view) {
         this.view = view;
@@ -35,6 +36,7 @@ public class ControladorTabla extends MouseAdapter {
             modelo.CargarDatos();
             this.view.getTblBarcos().setModel(modelo);
             this.view.getTblBarcos().updateUI();
+            actualizar=true;
         }
         if(e.getSource()==this.view.getBtnAgregar()){
             Barcos barcos=new Barcos();
@@ -46,7 +48,7 @@ public class ControladorTabla extends MouseAdapter {
             barcos.setURL(this.view.getTxtURL().getText());
 
             if(modelo.agregarBarco(barcos)){
-                JOptionPane.showMessageDialog(view,"Se agregó correctamente","Aviso",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(view,"Se agrego correctamente","Aviso",JOptionPane.INFORMATION_MESSAGE);
                 this.view.getTblBarcos().updateUI();
             }else{
                 JOptionPane.showMessageDialog(view,"No se pudo agregar a la base de datos, por favor revise su conexión","Error al insertar",JOptionPane.ERROR_MESSAGE);
@@ -68,6 +70,7 @@ public class ControladorTabla extends MouseAdapter {
             try{
                 this.view.getImagenPanel3().setText("");
                 this.view.getImagenPanel3().setIcon(tmp.getImagen());
+
             }catch (MalformedURLException mue){
                 System.out.println(e.toString());
             }
@@ -86,31 +89,35 @@ public class ControladorTabla extends MouseAdapter {
 
                 int Res=JOptionPane.showConfirmDialog(
                         view,
-                        "¿Estás seguro querer actualizar el registro con ID: "+id+"?",
+                        "¿Estas seguro de querer actualizar el registro con ID: "+id+"?",
                         "Actualizar campos",
-                        JOptionPane.YES_NO_OPTION
+                        JOptionPane.YES_NO_CANCEL_OPTION
 
                 );
                 switch (Res){
                     case 0:
                         modelo.update(barcos);
                         modelo.CargarDatos();
-
+                        view.Limpiar2();
                         break;
                     case 1:
+                        view.Limpiar2();
                         break;
+                        case 2:
+                            break;
+
                 }
                 this.view.getTblBarcos().updateUI();
             }catch (SQLException sqle){
                 System.out.println("Error al actualizar");
             }
-            view.Limpiar2();
+
         }
         if(e.getSource()==view.getBtnEliminar()){
             view.Limpiar2();
             int Res=JOptionPane.showConfirmDialog(
                     view,
-                    "¿Estás seguro de borrar el registro con ID: "+id+"?",
+                    "¿Estas seguro de borrar el registro con ID: "+id+"?",
                     "Eliminar campos",
                     JOptionPane.YES_NO_OPTION
 
@@ -119,6 +126,7 @@ public class ControladorTabla extends MouseAdapter {
             switch (Res){
                 case 0:
                     try{
+
                         modelo.delete(id);
                     }catch (SQLException sqle){
                         System.out.println("No se pudo eliminar");
@@ -137,6 +145,10 @@ public class ControladorTabla extends MouseAdapter {
             ano="";
             pasajeros="";
             url="";
+        }
+        if(actualizar==true){
+            modelo.CargarDatos();
+            this.view.getTblBarcos().updateUI();
         }
     }
 }

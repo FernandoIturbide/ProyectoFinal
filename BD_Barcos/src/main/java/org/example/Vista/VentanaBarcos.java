@@ -24,6 +24,7 @@ public class VentanaBarcos extends JFrame {
     private JPanel panel1;//Formulario para capturar libros
     private JPanel panel2;//Tabla para mostrar los libros
     private JLabel imagenPanel3;
+    private JLabel imagenBorrar;
     private JPanel panel3;//
     private JPanel panel4;//
     private JButton btnCargar;
@@ -362,5 +363,4 @@ public class VentanaBarcos extends JFrame {
         btnAgregar.setVisible(false);
         btnActualizar2.setVisible(true);
     }
-
 }

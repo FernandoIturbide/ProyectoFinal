@@ -14,7 +14,7 @@ public class BarcosDAO implements IntefazDAO {
 
     @Override
     public boolean insertar(Object o) throws SQLException {
-        String sql = "INSERT INTO Barcos (Nombre,Tipo,Anio,Pasajaeros,URL) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO Barcos (Nombre,Tipo,Anio,Pasajeros,URL) VALUES (?,?,?,?,?);";
         int rowCount=0;
         PreparedStatement pstm= Singleton.getInstance("Barcos_BD.db").getConnection().prepareStatement(sql);
         pstm.setString(1,((Barcos)o).getNombre());
@@ -28,7 +28,7 @@ public class BarcosDAO implements IntefazDAO {
 
     @Override
     public boolean update(Object o) throws SQLException {
-        String sqlUpdate = "UPDATE Barcos SET Nombre=?,Tipo=?,Anio=?,Pasajaeros=?,URL=? WHERE Id=?;";
+        String sqlUpdate = "UPDATE Barcos SET Nombre=?,Tipo=?,Anio=?,Pasajeros=?,URL=? WHERE Id=?;";
         int rowCount=0;
         PreparedStatement pstm=Singleton.getInstance("Barcos_BD.db").getConnection().prepareStatement(sqlUpdate);
         pstm.setString(1,((Barcos)o).getNombre());
